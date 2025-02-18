@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 // API to generate QR code
 app.get("/generate-qr", async (req, res) => {
     try {
-        const qrCode = await generateQRCode("/api/scan");
+        const qrCode = await generateQRCode(`${process.env.BACKEND_URL}/api/scan`);
         res.send(`<img src="${qrCode}" alt="QR Code"/>`);
     } catch (error) {
         console.error("QR Code generation failed:", error);
