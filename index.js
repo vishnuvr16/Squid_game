@@ -4,11 +4,19 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { generateQRCode } from "./utils/qrGenerator.js";
 import qrRoutes from "./routes/qrRoutes.js";
+import path,{dirname} from "path";
+import { fileURLToPath } from 'url';
+
 
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
